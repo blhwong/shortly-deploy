@@ -1,6 +1,8 @@
 var db = require('../config');
 var crypto = require('crypto');
 
+
+var Link = db.Link;
 // var Link = db.Model.extend({
 //   tableName: 'urls',
 //   hasTimestamps: true,
@@ -16,4 +18,4 @@ var crypto = require('crypto');
 //   }
 // });
 
-// module.exports = Link;
+module.exports = Link;

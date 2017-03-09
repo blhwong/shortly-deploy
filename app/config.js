@@ -1,21 +1,23 @@
 var path = require('path');
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost/shortly');
 var db = mongoose.connection;
 
-
+Promise.promisifyAll(mongoose);
 
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log('we are connected to MMMMM');
-});
+
+db.onceAsync('open')
+  .then(function() {
+    console.log('We are connected');
+  });
 
 var Schema = mongoose.Schema;
 
 var urlSchema = new Schema({
-  _id: Number,
+  // _id: Number,
   url: String,
   baseUrl: String,
   code: String,
@@ -25,24 +27,25 @@ var urlSchema = new Schema({
 });
 
 var usersSchema = new Schema({
-  _id: Number,
+  // _id: Number,
   username: {type: String, unique: true},
   password: String,
   timestamp: { type: Date, default: Date.now }
 });
 
 var User = mongoose.model('User', usersSchema);
+var Link = mongoose.model('Link', urlSchema);
 // var user1 = new User();
 // console.log('===========user1 is', user1);
-User.create({_id: 1, username: 'Brandon', password: 'mango'}, function(err, user1) {
-  if (err) {
-    console.log('error: ', err);
-  } else {
+// User.create({_id: null, username: 'Brandon2', password: 'mango'}, function(err, user1) {
+//   if (err) {
+//     console.log('error: ', err);
+//   } else {
 
-    console.log('saved!');
-    console.log('user: ', user1);
-  }
-});
+//     console.log('saved!');
+//     console.log('user: ', user1);
+//   }
+// });
 // var knex = require('knex')({
 //   client: 'sqlite3',
 //   connection: {
@@ -81,4 +84,8 @@ User.create({_id: 1, username: 'Brandon', password: 'mango'}, function(err, user
 //   }
 // });
 
-module.exports = db;
+module.exports = {
+  db: db,
+  Link: Link,
+  User: User
+};
