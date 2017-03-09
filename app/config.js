@@ -35,6 +35,11 @@ var usersSchema = new Schema({
 
 var User = mongoose.model('User', usersSchema);
 var Link = mongoose.model('Link', urlSchema);
+
+// Link.createAsync({url: 'www.google.com', baseUrl: null, code: null, title: null, visits: 0})
+//   .then(function(err) {
+//     console.log('added!');
+//   });
 // var user1 = new User();
 // console.log('===========user1 is', user1);
 // User.create({_id: null, username: 'Brandon2', password: 'mango'}, function(err, user1) {

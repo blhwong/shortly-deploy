@@ -91,10 +91,11 @@ describe('', function() {
     describe('With previously saved urls: ', function() {
 
       beforeEach(function(done) {
-        link = new Link({
+        link = new Link ({
           url: 'http://www.roflzoo.com/',
           title: 'Funny pictures of animals, funny dog pictures',
           baseUrl: 'http://127.0.0.1:4568',
+          code: Link.initialize('http://www.roflzoo.com/'),
           visits: 0
         });
 
@@ -112,6 +113,7 @@ describe('', function() {
           .expect(200)
           .expect(function(res) {
             var secondCode = res.body.code;
+            console.log('=================res', res.body);
             expect(secondCode).to.equal(firstCode);
           })
           .end(done);
@@ -119,6 +121,7 @@ describe('', function() {
 
       it('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
+        console.log('=================sha', sha);
         request(app)
           .get('/' + sha)
           .expect(302)
