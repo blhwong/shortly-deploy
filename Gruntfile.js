@@ -38,6 +38,7 @@ module.exports = function(grunt) {
     eslint: {
       target: [
         // Add list of files to lint here
+        '../**/*.js'
       ]
     },
 
@@ -68,6 +69,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git status && git add . && git commit'
       }
     },
   });
@@ -94,20 +96,23 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'concat', 'uglify', 'cssmin'
+    'eslint','mochaTest', 'concat', 'uglify', 'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      // same as below with git push live master
+      grunt.task.run(['shell']);
     } else {
+      // git add, git commit with message, git push origin master
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
+    'build', 'server-dev'
+    ]);
 
 
 };
