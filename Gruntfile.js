@@ -68,8 +68,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      prodServer: {
-        command: 'git status && git add . && git commit && git push origin master'
+      local: {
+        command: 'git status && git add . && git commit && git push live master'
       }
     },
   });
