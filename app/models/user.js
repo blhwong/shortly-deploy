@@ -24,4 +24,14 @@ var Promise = require('bluebird');
 
 var User = db.User;
 
+User.comparePassword = function(user, attemptedPassword, callback) {
+  console.log('passwords', attemptedPassword, user.password);
+    bcrypt.compare(attemptedPassword, user.password, function(err, isMatch) {
+      if (err) {
+        console.log('pw err', err);
+      }
+      callback(isMatch);
+    });
+  }
+
 module.exports = User;
