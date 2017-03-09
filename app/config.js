@@ -15,34 +15,35 @@ db.once('open', function() {
 var Schema = mongoose.Schema;
 
 var urlSchema = new Schema({
-  _id: Number,
+  // _id: Number,
   url: String,
   baseUrl: String,
   code: String,
-  title: String, 
+  title: String,
   visits: Number,
   timestamp: { type: Date, default: Date.now }
 });
 
 var usersSchema = new Schema({
-  _id: Number,
+  // _id: Number,
   username: {type: String, unique: true},
   password: String,
   timestamp: { type: Date, default: Date.now }
 });
 
 var User = mongoose.model('User', usersSchema);
-// var user1 = new User();
-// console.log('===========user1 is', user1);
-User.create({_id: 1, username: 'Brandon', password: 'mango'}, function(err, user1) {
-  if (err) {
-    console.log('error: ', err);
-  } else {
+var Url = mongoose.model('Url', urlSchema);
+// // var user1 = new User();
+// // console.log('===========user1 is', user1);
+// User.create({username: 'test', password: 'testmango'}, function(err, user1) {
+//   if (err) {
+//     console.log('error: ', err);
+//   } else {
 
-    console.log('saved!');
-    console.log('user: ', user1);
-  }
-});
+//     console.log('saved!');
+//     console.log('user: ', user1);
+//   }
+// });
 // var knex = require('knex')({
 //   client: 'sqlite3',
 //   connection: {
@@ -81,4 +82,9 @@ User.create({_id: 1, username: 'Brandon', password: 'mango'}, function(err, user
 //   }
 // });
 
-module.exports = db;
+// module.exports = db;
+module.exports = {
+  db: db,
+  User: User,
+  Url: Url
+}

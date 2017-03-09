@@ -22,4 +22,6 @@ var Promise = require('bluebird');
 //   }
 // });
 
-// module.exports = User;
+var User = db.User;
+
+module.exports = User;

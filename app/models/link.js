@@ -15,5 +15,6 @@ var crypto = require('crypto');
 //     });
 //   }
 // });
+var Link = db.Url;
 
-// module.exports = Link;
+module.exports = Link;
