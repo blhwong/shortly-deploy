@@ -113,7 +113,6 @@ describe('', function() {
           .expect(200)
           .expect(function(res) {
             var secondCode = res.body.code;
-            console.log('=================res', res.body);
             expect(secondCode).to.equal(firstCode);
           })
           .end(done);
@@ -121,7 +120,6 @@ describe('', function() {
 
       it('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
-        console.log('=================sha', sha);
         request(app)
           .get('/' + sha)
           .expect(302)

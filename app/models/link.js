@@ -3,30 +3,11 @@ var crypto = require('crypto');
 
 
 var Link = db.Link;
-// var Link = db.Model.extend({
-//   tableName: 'urls',
-//   hasTimestamps: true,
-//   defaults: {
-//     visits: 0
-//   },
-//   initialize: function() {
-//     this.on('creating', function(model, attrs, options) {
-//       var shasum = crypto.createHash('sha1');
-//       shasum.update(model.get('url'));
-//       model.set('code', shasum.digest('hex').slice(0, 5));
-//     });
-//   }
-// });
 
 Link.initialize = function(link) {
   var shasum = crypto.createHash('sha1');
   shasum.update(link);
   return shasum.digest('hex').slice(0, 5);
-  // this.on('creating', function(model, attrs, options) {
-  //   var shasum = crypto.createHash('sha1');
-  //   shasum.update(model.get('url'));
-  //   model.set('code', shasum.digest('hex').slice(0, 5));
-  // });
 };
 
 module.exports = Link;
